@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Lista de Clientes</span></li>
+				</ul>
+				   <a class="btn btn-primary btn-md" href="/clientes/cadastrar" role="button">
+	                    <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	                    <span>Cadastrar Clientes</span>
+	                </a>
+			</div>
+			
+		</nav>
+
+		<div class="container">
+		<p>
+	                <i class="oi oi-magnifying-glass"></i><span></span>
+	                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseNome"
+	                        aria-controls="collapseNome">Nome
+	                </button>
+	                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCPFCNPJ"
+	                        aria-controls="collapseCPFCNPJ">CPF/CNPJ
+	                </button>
+	                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCidade"
+	                        aria-controls="collapseCidade">Cidade
+	                </button>
+	            </p>
+	            <div class="row">
+	                <div class="col">
+	                    <div class="collapse" id="collapseNome">
+	
+	                        <nav class="navbar navbar-light bg-light">
+	                            <form class="form-inline" method="GET" th:action="@{/clientes/buscar/nome}">
+	                                <input class="form-control mr-sm-2" type="search" placeholder="nome" aria-label="Search"
+	                                       th:name="nome" />
+	                                <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+	                            </form>
+	                        </nav>
+	
+	                    </div>
+	                </div>
+	            </div>
+				<div class="row">
+	                <div class="col">
+	                    <div class="collapse" id="collapseCPFCNPJ">
+	
+	                        <nav class="navbar navbar-light bg-light">
+	                             <form class="form-inline" method="GET" th:action="@{/clientes/buscar/cpf_cnpj}">
+	                                <input class="form-control mr-sm-2" type="search" placeholder="CPF/CNPJ" aria-label="Search"
+	                                       th:name="cpf_cnpj" />
+	                                <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+	                            </form>
+	                        </nav>
+	
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col">
+	                    <div class="collapse" id="collapseCidade">
+	
+	                        <nav class="navbar navbar-light bg-light">
+	                              <form class="form-inline" method="GET" th:action="@{/clientes/buscar/cidade}">
+	                                <input class="form-control mr-sm-2" type="search" placeholder="Cidade" aria-label="Search"
+	                                       th:name="nome" />
+	                                <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+	                            </form>
+	                        </nav>
+	
+	                    </div>
+	                </div>
+	            </div>
+	
+	
+	            <div class="table-responsive">
+	            
+	            	<div th:replace="fragments/alert"></div>
+	            	
+	                <table class="table table-striped table-hover table-sm">
+	                    <thead>
+	                    <tr>
+	                        <th>#</th>
+	                        <th th:text="#{tabela.cliente.col.st_nome_cliente}">Nome</th>
+	                        <th th:text="#{tabela.cliente.col.cnpj_cpf}">CPF/CNPJ</th>
+	                        <th th:text="#{tabela.cliente.st_email_cliente}">E-mail</th>
+	                        <th th:text="#{tabela.cliente.col.numero_telefone}">Telefone</th>
+	                        <th th:text="#{tabela.cliente.col.endereco}">Endereço</th>
+	                        <th th:text="#{tabela.cliente.col.tipopessoa}">Pessoa</
+	                        <th th:text="#{tabela.cliente.col.acao}">Ação</th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+		                    <tr th:each="c : ${clientes}">
+		                        <td th:text="${c.id}">2</td>
+		                        <td th:text="${c.st_nome_cliente}">Ana Maria Lindoval</td>
+		                        <td th:text="${c.cnpj_cpf}">000.000.000-00</td>
+		                        <td th:text="${c.st_email_cliente}">@gmail.com</td>
+		                        <td th:text="${c.numero_telefone}">(00)00000-0000</td>
+		                        <td>
+		                            <button type="button" class="btn btn-secondary btn-sm" data-container="body"
+		                                    data-toggle="popover" data-placement="top"
+		                                    th:attr="data-content=${#strings.concat(
+			                                    c.endereco.logradouro, ', ',  
+			                                    c.endereco.bairro, ', ',
+			                                    c.endereco.cidade, ' - ', 
+			                                    c.endereco.uf.sigla, ' - ',
+			                                    c.endereco.cep
+		                                    )}">
+		                                
+		                                <span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+		                            </button>
+		                        </td>
+		                     			<td th:text="${c.tipopessoa}">PF/PJ</td>
+		                        <td colspan="2">
+		                            <a class="btn btn-info btn-sm" role="button">
+		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                            </a>
+		                            <button  type="button" class="btn btn-danger btn-sm"
+		                                    data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                            </button>
+		                        </td>
+		                    </tr>    
+	                    </tbody>
+	                </table>
+	            </div>
+	             <div th:replace="fragments/modal :: modal"></div>
+		</div>
+
+	</section>		
+</body>
+</html>
