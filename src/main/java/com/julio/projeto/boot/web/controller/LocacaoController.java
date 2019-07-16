@@ -18,6 +18,7 @@ import com.julio.projeto.boot.web.model.Cliente;
 import com.julio.projeto.boot.web.model.EnderecoObra;
 import com.julio.projeto.boot.web.model.Locacao;
 import com.julio.projeto.boot.web.model.Motorista;
+import com.julio.projeto.boot.web.model.SituacaoLocacao;
 import com.julio.projeto.boot.web.model.SituacaoPagamento;
 import com.julio.projeto.boot.web.model.Veiculo;
 import com.julio.projeto.boot.web.service.CacambaService;
@@ -97,6 +98,11 @@ public class LocacaoController {
 	@ModelAttribute("situacao_pag")
 	public SituacaoPagamento[] getStatusPag() {
 		return SituacaoPagamento.values();
+	}
+	
+	@ModelAttribute("situacao_locacao")
+	public SituacaoLocacao[] getSituacao() {
+		return SituacaoLocacao.values();
 	}
 
 }
