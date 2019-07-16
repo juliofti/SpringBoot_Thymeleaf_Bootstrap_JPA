@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastro Enderecos Obras </span></li>
+				</ul>
+				<a class="btn btn-primary btn-md"
+					th:href="@{/enderecos_obra/listar}" role="button"> <span
+					class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> <span>Listar
+						Locações</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		<div th:replace="fragments/alert"></div>
+			<form th:action="@{/enderecos_obra/salvar}" th:object="${enderecoObra}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="inputLocal">Nome/Razão social</label> <select id="inputLocal"
+							class="form-control" th:field="*{cliente_end}">
+							<option value="">Selecione...</option>
+							<option th:each="c : ${cliente_end}" th:value="${c.id}"
+								th:text="${c.st_nome_cliente}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="recipient-name" class="col-form-label">Endereço:</label>
+						<input type="text" class="form-control" id="recipient-nome" th:field="*{logradouro}">
+					</div>
+					<div class="form-group col-md-3">
+						<label for="recipient-name" class="col-form-label">Cidade:</label>
+						<input type="text" class="form-control" id="recipient-email" th:field="*{cidade}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="recipient-name" class="col-form-label">Bairro:</label>
+						<input type="text" class="form-control" id="recipient-data" th:field="*{bairro}">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="recipient-name" class="col-form-label">CEP:</label> <input
+							type="text" class="form-control" id="recipient-senha" th:field="*{cep}">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

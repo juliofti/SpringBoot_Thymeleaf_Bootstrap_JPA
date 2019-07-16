@@ -2,10 +2,12 @@ package com.julio.projeto.boot.web.conversor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import com.julio.projeto.boot.web.model.Cacamba;
 import com.julio.projeto.boot.web.service.CacambaService;
 
+@Component
 public class StringToCacambaConverter implements Converter<String, Cacamba>{
 
 	@Autowired

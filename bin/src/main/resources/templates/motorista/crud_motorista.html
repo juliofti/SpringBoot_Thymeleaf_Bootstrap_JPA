@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastro de Motoristas</span></li>
+				</ul>
+				<a class="btn btn-primary btn-md" th:href="@{/motoristas/listar}"
+					role="button"> <span class="oi oi-plus" title="Cadastro"
+					aria-hidden="true"></span> <span>Listar Motoristas</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		<div th:replace="fragments/alert"></div>
+			<form th:action="@{/motoristas/salvar}" th:object="${motorista}" method="POST">
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputEmail4">Nome</label> <input type="text"
+							class="form-control" id="nome" placeholder="Nome" th:field="*{nome}">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputPassword4">CPF</label> <input type="text"
+							class="form-control" id="cpf" placeholder="cpf" th:field="*{cpf}">
+					</div>
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Locação de Caçambas</span></li>
+				</ul>
+
+				<a class="btn btn-primary btn-md" th:href="@{/locacaos/listar}"
+					role="button"> <span class="oi oi-plus" title="Cadastro"
+					aria-hidden="true"></span> <span>Listar Locações</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container">
+			<form th:action="@{/locacaos/salvar}" th:object="${locacao}" method="POST">
+				<div class="form-row">
+
+
+					<div class="form-group col-md-3">
+						<label for="inputNome4">Nome/Razão social</label> <select
+							id="cliente" class="form-control" th:field="*{cliente}">
+							<option value="">Selecione...</option>
+							<option th:each="c : ${clientes}" th:value="${c.id}"
+								th:text="${c.st_nome_cliente}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="inputCity">CPF/CNPJ</label> <input type="text"
+							class="form-control" id="inputCPFCNPJ">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputLocal">Local</label> <select id="inputLocal" 	
+							class="form-control">
+							<option th:value="${id_enderecoObra_fk}">Selecione...</option>
+
+						</select>
+					</div>
+
+					<div class="form-group col-md-5">
+						<label for="inputAddress">Endereço</label> <input type="text"
+							disabled="true" class="form-control" id="inputAddress"
+							placeholder="Rua dos Bobos, nº 0">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputCity">Cidade</label> <input type="text"
+							disabled="true" class="form-control" id="inputCity" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputBairro4">Bairro</label> <input type="text"
+							disabled="true" class="form-control" id="inputBairro4"
+							placeholder="Bairro" />
+					</div>
+				</div>
+
+				<hr />
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="dataEntrada">Data de Entrega</label> <input
+							type="date" class="form-control" id="dataEntrega" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="dataEntrada">Data de Retira</label> <input type="date"
+							class="form-control" id="dataRetira" />
+					</div>
+					<div class="form-group col-md-3">
+						<label for="inputNome4">Caçamba</label> <select id="inputNome4"
+							class="form-control" th:field="*{cacamba}">
+							<option value="">Selecione...</option>
+							<option th:each="cacam : ${cacambas}" th:value="${cacam.id}"
+								th:text="${cacam.descricao}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputPreco">Preço</label> <input type="text"
+							class="form-control" id="inputPreco" placeholder="Preço" />
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="inputVeiculo">Veiculo</label> <select
+							id="inputVeiculo" class="form-control" th:field="*{veiculo_entrega}">
+							<option value="">Selecione...</option>
+							<option th:each="veic : ${veiculo_entrega}" th:value="${veic.id}"
+								th:text="${veic.placa}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputMotorista">Motorista</label> <select
+							id="inputMotorista" class="form-control" th:field="*{motorista_entrega}">
+							<option value="">Selecione...</option>
+							<option th:each="mot : ${motorista_entrega}" th:value="${mot.id}"
+								th:text="${mot.nome}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputStatusLoc">Status Locação</label> <select
+							id="inputStatusLoc" class="form-control">
+							<option value="">Selecione...</option>
+							<option></option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputStatus">Status Pagamento</label> <select
+							id="inputStatus" class="form-control" th:field="*{situacao_pag}">
+							<option value="">Selecione...</option>
+							<option th:each="situacao_pag : ${situacao_pag}"
+								th:value="${situacao_pag}" th:text="${situacao_pag.descricao}"></option>
+						</select>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</form>
+		</div>
+	</section>
+
+
+</body>
+</html>

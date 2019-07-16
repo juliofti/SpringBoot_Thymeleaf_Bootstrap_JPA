@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastro de Clientes</span></li>
+				</ul>
+				<a class="btn btn-primary btn-md " href="/clientes/listar"
+					role="button"> <span class="oi oi-spreadsheet" title="Cadastro"
+					aria-hidden="true"></span> <span>Listar Clientes</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container" id="crud_cliente">
+		<div th:replace="fragments/alert"></div>
+			<form
+				th:action="${cliente.id == null} ? @{/clientes/salvar} : @{/clientes/editar}"
+				th:object="${cliente}" method="POST">
+				<div class="form-row">
+
+					<div class="form-group col-md-4">
+						<label for="inputNome4">Nome/Razão social</label> 
+						<input type="text" class="form-control" id="nome" placeholder="Nome"
+							autofocus="autofocus" th:field="*{st_nome_cliente}"/>
+						<div class="invalid-feedback">
+							<span th:errors="*{st_nome_cliente}"></span>
+	                    </div>
+					</div>
+
+					<div class="col-md-2">
+						<label for="uf">Pessoa</label> 
+						<select id="pessoatipo" class="form-control" th:field="*{tipopessoa}">
+							<option value="">Selecione...</option>
+							<option th:each="tipopessoa : ${tipos}" th:value="${tipopessoa}"
+								th:text="${tipopessoa.sigla}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="inputCity">CPF/CNPJ</label> <input type="text"
+							class="form-control" id="inputCPFCNPJ" th:field="*{cnpj_cpf}"/>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputEmail4">Email</label> <input type="email"
+							class="form-control" id="inputEmail4" placeholder="Email" th:field="*{st_email_cliente}"/>
+					</div>
+
+					<div class="form-group col-md-4">
+							<label for="inputTelefone">Telefone</label> <input type="text"
+								class="form-control" id="inputTelefone" placeholder="Telefone" th:field="*{numero_telefone}"/>
+					</div>
+				</div>
+
+				<div class="form-row">
+
+					<div class="form-group col-md-6">
+						<label for="inputAddress">Endereço</label> <input type="text"
+							class="form-control" id="inputAddress"
+							placeholder="Rua dos Bobos, nº 0" th:field="*{endereco.logradouro}">
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="inputCity">Cidade</label> <input type="text"
+							class="form-control" id="inputCity"  th:field="*{endereco.cidade}"/>
+					</div>
+
+				</div>
+				<div class="form-row">
+					<div class="form-row">
+						<div class="form-group col-md-5">
+							<label for="inputBairro4">Bairro</label> <input type="text"
+								class="form-control" id="inputBairro4" placeholder="Bairro" th:field="*{endereco.bairro}"/>
+						</div>
+
+
+						<div class="form-group col-md-3">
+							<label for="inputEstado">Estado</label>
+							<select id="uf" class="form-control" th:field="*{endereco.uf}">
+	                            <option value="">Selecione...</option>
+	                            <option th:each="uf : ${ufs}" th:value="${uf}" th:text="${uf.sigla}"></option>
+	                        </select>
+	                        <div class="invalid-feedback">
+								<span th:errors="*{endereco.uf}"></span>
+	                        </div>
+
+						</div>
+						<div class="form-group col-md-3">
+							<label for="inputCEP">CEP</label> <input type="text"
+								class="form-control" id="inputCEP" th:field="*{endereco.cep}">
+						</div>
+					</div>
+				</div>
+				<input type="hidden" id="id" th:field="*{id}"/>
+				<input type="hidden" id="endereco.id" th:field="*{endereco.id}"/>
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			</form>
+		</div>
+
+	</section>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastro de Caçambas</span></li>
+				</ul>
+
+				<a class="btn btn-primary btn-md" th:href="@{/cacambas/listar}"
+					role="button"> <span class="oi oi-plus" title="Cadastro"
+					aria-hidden="true"></span> <span>Listar Caçambas</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		<div th:replace="fragments/alert"></div>
+			<form th:action="@{/cacambas/salvar}" th:object="${cacamba}" method="POST">
+				<div class="col-md-4 offset-md-3">
+					
+						<label for="inputDesc">Descricão</label> <input type="text"
+							class="form-control" id="descricao" placeholder="Descricao..." th:field="*{descricao}">
+					
+					
+						<label for="inputCapac">Capacidade</label> <input type="text"
+							class="form-control" id="capaci" placeholder="Capacidade" th:field="*{capacidade}">
+					
+					
+					
+						<label for="inputValor">Preço Locação</label> <input type="text"
+							class="form-control" id="valor" placeholder="Preço da Locação..." th:field="*{valorlocacao}">
+					
+					<div>
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>	
+					</div>
+				
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

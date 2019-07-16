@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastro de Veiculos</span></li>
+				</ul>
+
+				<a class="btn btn-primary btn-md" th:href="@{/veiculos/listar}"
+					role="button"> <span class="oi oi-plus" title="Cadastro"
+					aria-hidden="true"></span> <span>Listar Veiculos</span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		<div th:replace="fragments/alert"></div>
+			<form th:object="${veiculo}"  th:action="${veiculo.id == null} ? @{/veiculos/salvar} : @{/veiculos/editar}" method="POST">
+			<div class="col-md-4 offset-md-3">
+				<div class="form-group">
+					<label for="inputModelo">Modelo</label> <input type="text"
+						class="form-control" id="modelo" placeholder="Modelo..."
+						th:field="*{modelo}">
+				</div>
+				<div class="form-group">
+					<label for="inputCapac">Placa</label> <input type="text"
+						class="form-control" id="placa" placeholder="Placa do veiculo"
+						th:field="*{placa}">
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+				
+				
+			</div>	
+			</form>
+		</div>
+	</section>
+</body>
+</html>

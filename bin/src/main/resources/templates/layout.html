@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>Spring-Boot</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" th:href="@{/image/favicon.png}" />
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
+	 <!-- Custom fonts for this template-->
+  <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<!-- Custom styles for this template-->
+  <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet"/>
+
+</head>
+<body>
+ <!-- Page Wrapper -->
+  <div id="wrapper">
+	<aside>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
+				<span>menu</span>
+			</nav>
+	</aside>	
+	
+	<div  class="layout-main col-10">
+	<header th:replace="fragments/header :: cabecalho">
+			<div>header</div>
+	</header>
+		<section layout:fragment="corpo">
+			<div>conteudo principal das páginas</div>
+		</section>
+	</div>	
+		
+	</div>
+	
+	<footer th:replace="fragments/footer :: rodape">
+		<div>footer</div>
+	</footer>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	
+	  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+  <!-- Page level plugins -->
+  <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+  <!-- Page level custom scripts -->
+  <script th:src="@{/js/demo/chart-area-demo.js}"></script>
+  <script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script type="text/javascript" th:src="@{/js/jquery.maskedinput.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.maskedinput.js}"></script>
+ 
+<script  type="text/javascript">
+
+var id_cliente;
+var valorIdcliente
+$("#pessoatipo").change(function () {
+
+
+    var tipo = document.getElementById('pessoatipo');
+
+    esValor = tipo.options[tipo.selectedIndex].value;
+    if(esValor === "PF"){
+    	$("#inputCPFCNPJ").mask("999.999.999-99");	
+    }else if(esValor === "PJ"){
+		$("#inputCPFCNPJ").mask("99.999.999/9999-99");	
+	}else{
+		alert("Selecione o Tipo de Pessoa");
+	}
+});
+
+$("#cliente").change(function () {
+
+	id_cliente = document.getElementById("cliente");
+    valorIdcliente = id_cliente.options[id_cliente.selectedIndex].value;
+	var carrega_url = "http://localhost:8080/locacaos/preencherCPF/"+valorIdcliente;
+
+    $.ajax({
+		
+		url : carrega_url,
+		success : function(data) {
+			document.getElementById('inputCPFCNPJ').value = data;
+		},
+		complete : function() {
+			var carrega_url = "http://localhost:8080/locacaos/preencherCombEnd/"+valorIdcliente;
+			$("#inputLocal").empty();
+			$.ajax({
+				url : carrega_url,
+				success : function(data) {
+					 $.each(data, function(i) {
+			                 $('#inputLocal').append($("<option />").val(data[i].id).text(data[i].logradouro));
+			            });
+					
+					//$('#inputLocal').val(data[0].logradouro).change();
+				},
+				complete : function() {
+			
+				}//final do complete
+
+			});
+
+		}//final do complete
+
+	});
+	
+});
+
+</script>
+
+<!-- JavaScript para Deletar -->
+<script type="text/javascript">
+	
+		var url = '';
+		
+		$('button[id*="btn_"]').click(function() {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+			
+		});
+		
+		$('#ok_confirm').click(function() {
+			document.location.href = url;
+		});
+	    
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+		
+		$(document).ready(function(){
+		    $(".navbar-toggle").click(function(){
+		        $(".sidebar").toggleClass("sidebar-open");
+		    })
+		});
+
+	</script>
+
+</body>
+</html>
